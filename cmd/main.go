@@ -1,9 +1,12 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
+
+	"github.com/wenmengliu/cyoa"
 )
 
 func main() {
@@ -15,5 +18,13 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Print
+
+	d := json.NewDecoder(f)
+	var story cyoa.Story
+	if err := d.Decode(&story); err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("%+v\n", story)
+
 }
